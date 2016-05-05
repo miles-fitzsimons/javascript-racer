@@ -1,7 +1,3 @@
-/*body {
-	background-color: green;
-	}*/
-
 	body {
 		background-image: url("images/usflag.jpg");
 		background-size: cover;
@@ -9,118 +5,61 @@
 
 	#wrapper {
 		position: absolute;
-/*	background-color: red;
-*/	width: 90%;
-padding: 2% 5% 5% 5%;
-}
+		width: 90%;
+		padding: 2% 5% 5% 5%;
+	}
 
+	h1,  h2 {
+		margin-top: 0;
+		text-align: center;
+		text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
+	}
 
-h1,  h2 {
-	margin-top: 0;
-	text-align: center;
-	text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
-}
+	h1 {
+		font-size: 3rem;
+	}
 
-h1 {
-	font-size: 3rem;
-}
+	h2 {
+		font-size: 2rem;
+	}
 
-h2 {
-	font-size: 2rem;
-}
+	#playAgain {
+		margin-top: 2rem;
+		display: none;
+	}
 
-#playAgain {
-	margin-top: 2rem;
-	display: none;
-}
+	#track1, #track2 {
+		position: relative;
+		height: 10rem;
+		border: solid medium #000000;
+		background-color: #FFFFFF;
 
-#track1, #track2 {
-	position: relative;
-	height: 10rem;
-	border: solid medium #000000;
-	background-color: #FFFFFF;
+	}
 
-}
+	#track1 {
+		margin-bottom: 2rem;
+	}
 
-#track1 {
-	/*background-color: blue;*/
-	margin-bottom: 2rem;
+	#track2 {
+	}
 
-}
+	#car1, #car2 {
+		position: relative;
+		width: 8rem;
+		height: 80%;
+		top: 1rem;
+		left: 1rem;
+	}
 
-#track2 {
-	/*background-color: purple;*/
-}
+	img {
+		height: 100%;
+	}
 
-#car1, #car2 {
-	position: relative;
-	background-color: yellow;
-	width: 8rem;
-	height: 80%;
-	top: 1rem;
-	left: 1rem;
-}
-
-img {
-	height: 100%;
-}
-
-#winLose1, #winLose2 {
-	display: none;
-	background-color: black;
-	color: white;
-	height: 100%;
-	font-size: 9rem;
-	text-align: center;
-}
-
-
-
-
-
-
-
-
-
-
-
-/*VERSION 1
-body {
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	background-color: #FFFFFF;
-}
-
-#track1, #track2 {
-	position: absolute;
-	background-color: #FFFFFF;
-	height: 20%;
-	width: 90%;
-	top: 5%;
-	left: 5%;
-	right: 5%;
-	border: solid medium #000000;
-}
-
-#track1 {
-	top: 5%;
-}
-
-#track2 {
-	top: 30%;
-}
-
-#car1, #car2 {
-	position: relative;
-	background-color: #000000;
-	height: 80%;
-	width: 10rem;
-	top: 9%;
-	left: 2%;
-}
-
-#p1win, #p2win {
-	display: none;
-}
-*/
+	#winLose1, #winLose2 {
+		display: none;
+		background-color: black;
+		color: white;
+		height: 100%;
+		font-size: 9rem;
+		text-align: center;
+	}

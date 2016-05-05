@@ -64,7 +64,7 @@ function gameOver(){
 function trump(e){
 	if(e.which==32){
 		document.getElementById("wrapper").style.display = "none";
-		document.body.style.cssText = 'background-image: url("images/trump.jpg"); background-size: cover;';
+		document.body.style.cssText = 'background-image: url("images/trump2.jpg"); background-size: cover;';
 		window.setTimeout(reset, 250);
 	}
 }
