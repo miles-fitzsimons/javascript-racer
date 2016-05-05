@@ -32,7 +32,7 @@ function aUp(e){
 
 // Move car 2
 function lUp(e){
-	if(count2>86){
+	if(count2>87){
 		// Display player 2 wins and remove key listeners
 		gameOver();
 		document.getElementById("winLose1").innerHTML = "LOSER!";
