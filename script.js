@@ -1,4 +1,27 @@
 // --- STARTING SEQUENCE ---
+function startSeq(e) {
+	if (e.which === 32) {
+		document.removeEventListener("keydown", startSeq);
+		console.log("Space");
+		startPosns();
+		var i = 3;
+		$("#start").html(i + "...");
+		i--;
+		countDown = window.setInterval(function() {
+			$("#start").html(i + "...");
+			i--;
+			if (i === -1) {
+				clearInterval(countDown);
+				$("#start").html("Go!");
+				document.addEventListener("keydown", moveCat);
+				clock = window.setInterval(function() {
+					moveMouse();
+				}, 50);
+			}
+		},1000);
+	}
+}
+
 // Randomly place cat and mouse on Y axis
 function startPosns() {
 	var icons = ["cat","mouse"];
@@ -17,6 +40,8 @@ function startPosns() {
 	// Render cat and mouse at starting positions
 	$("#cat").css("top", top[0]);
 	$("#mouse").css("top", top[1]);	
+	$("#cat").css("display", "initial");
+	$("#mouse").css("display", "initial");
 }
 
 // --- MOUSE MOVEMENT ---
@@ -134,32 +159,30 @@ function isGameOver() {
 // --- GAME OVER SEQUENCE ---
 function gameOver(winState) {
 	clearInterval(clock);
+	// Add and Remove event listeners
 	$("#cat").css("display", "none");
-	// $("#mouse").css("display", "none");
 
 	// Cat wins
 	if (winState === 0) {
 		console.log("Cat wins");
 		$("#mouse").attr("src", "images/gravestone.png");
-
-
+	}
+	else {
+		console.log("Mouse wins");
+		$("#mouse").attr("src", "images/cheese.png");		
 	}
 }
 
 var clock;
+var countDown;
 
 // --- RUN ---
 $(function () {
+	$("#cat").css("display", "none");
+	$("#mouse").css("display", "none");
 	// Add Event Listeners
-	document.addEventListener("keydown",moveCat);
-
-	startPosns();
-	clock = window.setInterval(function() {
-		moveMouse();
-	}, 500);
-
-
-})
+	document.addEventListener("keydown", startSeq);
+});
 
 
 
