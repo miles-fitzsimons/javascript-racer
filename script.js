@@ -1,13 +1,13 @@
-// Starting sequence
+// --- STARTING SEQUENCE ---
 // Randomly place cat and mouse on Y axis
 function startPosns() {
 	var icons = ["cat","mouse"];
 	var top = [];
 	var iconHeight;
-	var trackHeight = document.getElementById("track").clientHeight;
+	var tHeight = $("#track").height();
 	for (var i = 0; i < icons.length; i++) {
 		iconHeight = document.getElementById(icons[i]).clientHeight;
-		top[i] = (trackHeight - iconHeight) * Math.random();
+		top[i] = (tHeight - iconHeight) * Math.random();
 	}
 	// If too close, call function again
 	if (Math.abs(top[0] - top[1]) < 75) {
@@ -19,8 +19,11 @@ function startPosns() {
 	$("#mouse").css("top", top[1]);	
 }
 
-// Mouse movement
+// --- MOUSE MOVEMENT ---
 function moveMouse() {
+	// Check to see if game is over
+	isGameOver();
+
 	// Move right
 	var xPos = $("#mouse").position().left;
 	var xMove = $("#track").width() / 50;
@@ -43,68 +46,117 @@ function moveMouse() {
 	else {
 		var maxTop = $("#track").height() - $("#mouse").height();
 		if ( yPos + yMove < maxTop ) {
-			//move it down
 			$("#mouse").css("top", yPos + yMove);
 		}
 		else {
 			$("#mouse").css("top", $("#track").height() - $("#mouse").height());
 		}
 	}
-
-	// isGameOver();
 }
 
-
-// Cat movement
+// --- CAT MOVEMENT ---
 function moveCat(e) {
 	var xPos = $("#cat").position().left;
-	var tWidth = $("#track").width(); 
+	var yPos = $("#cat").position().top;
+	var tWidth = $("#track").width();
+	var tHeight = $("#track").height();
+	var cWidth = $("#cat").width();
+	var cHeight = $("#cat").height();
 	var xMove = tWidth / 50;
-	console.log(xPos);
+	var yMove = tHeight / 50;
 
-
-// FIX ME UP FROM HERE
-// MAKE IT SO IF CAT MOVES TOO FAR RIGHT, SET ITS POSN RIGHT MOST IN TRACK
 	// Right arrow
 	if (e.which === 39) {
-		if ( xPos + xMove > $("#") )
-		$("#cat").css("left", xPos + xMove);
-		console.log(xPos);
+		if ( xPos + xMove + cWidth < tWidth ) {
+			$("#cat").css("left", xPos + xMove);
+		}
+		else {
+			$("#cat").css("left", tWidth - cWidth);
+		}
 	}
 
 	// Left arrow
 	if (e.which === 37) {
 		if( xPos - xMove < 0 ) {
 			$("#cat").css("left", 0);
-			console.log("Can't move back");
 		}
 		else {
 			$("#cat").css("left", xPos - xMove);
 		}
-		console.log(xPos);
 	}
 
 	// Up arrow
-	// if (e.which === 38) {
+	if (e.which === 38) {
+		if( yPos - yMove > 0) {
+			$("#cat").css("top", yPos - yMove);
+		}
+		else {
+			$("#cat").css("top",0);
+		}		
+	}
 
-	// }
+	// Down arrow
+	if (e.which === 40) {
+		if ( yPos + yMove < tHeight - cHeight ) {
+			$("#cat").css("top", yPos + yMove);
+		}
+		else {
+			$("#cat").css("top", tHeight - cHeight);
+		}
 
-
+	}
 }
 
+// --- CHECK FOR GAME OVER ---
+function isGameOver() {
+	var cPos = $("#cat").position();
+	var cWidth = $("#cat").width();
+	var cHeight = $("#cat").height();
+	var cCenter = [cPos.left + (cWidth / 2), cPos.top + (cHeight / 2)];
+	var mPos = $("#mouse").position();
+	var mWidth = $("#mouse").width();
+	var mHeight = $("#mouse").height();
+
+	// Check if cat caught mouse
+	if (cCenter[0] > mPos.left && cCenter[0] < mPos.left + mWidth && cCenter[1] > mPos.top && cCenter[1] < mPos.top + mHeight) {
+		console.log("Cat in X and Y axis");
+		gameOver(0);
+	}
+
+	// Check if mouse made it to edge of the track
+	if (mPos.left + (2 * mWidth) >= $("#track").width()) {
+		console.log(mPos.left, mWidth, $("#track").width());
+		console.log("Mouse escaped");
+		gameOver(1);
+	}
+}
+
+// --- GAME OVER SEQUENCE ---
+function gameOver(winState) {
+	clearInterval(clock);
+	$("#cat").css("display", "none");
+	// $("#mouse").css("display", "none");
+
+	// Cat wins
+	if (winState === 0) {
+		console.log("Cat wins");
+		$("#mouse").attr("src", "images/gravestone.png");
 
 
+	}
+}
 
-// Run
+var clock;
+
 // --- RUN ---
 $(function () {
 	// Add Event Listeners
 	document.addEventListener("keydown",moveCat);
 
 	startPosns();
-	window.setInterval(function() {
+	clock = window.setInterval(function() {
 		moveMouse();
-	}, 5000);
+	}, 500);
 
 
 })

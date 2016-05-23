@@ -4,7 +4,7 @@
 }
 
 body {
-	background-color: green;
+	background-color: blue;
 }
 
 #wrapper {
@@ -17,6 +17,8 @@ body {
 #track {
 	position: relative;
 	height: 30rem;
+	background-image: url("images/grass.jpg");
+	z-index: -2;
 }
 
 #cat,
@@ -26,6 +28,14 @@ body {
 	position: absolute;
 	/*top: 0;*/
 	left: 0;
+}
+
+#cat {
+	z-index: 1;
+}
+
+#mouse {
+	z-index: -1;
 }
 
 /*#wrapper {
@@ -53,7 +63,7 @@ body {
 */
 /*img {
 	height: 100%;
-}*/
+	}*/
 
 
 
