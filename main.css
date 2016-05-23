@@ -1,3 +1,69 @@
+* {
+	border: red solid 1px;
+	text-align: center;
+}
+
+body {
+	background-color: green;
+}
+
+#wrapper {
+	position: relative;
+	width: 96%;
+	padding: 2% 2% 5% 2%;
+}
+
+
+#track {
+	position: relative;
+	height: 30rem;
+}
+
+#cat,
+#mouse {
+	/*width: 100%;*/
+	height: 3rem;
+	position: absolute;
+	/*top: 0;*/
+	left: 0;
+}
+
+/*#wrapper {
+	position: absolute;
+	width: 96%;
+	padding: 2% 2% 5% 2%;
+}
+
+#track {
+	position: relative;
+	height: 30rem;
+	border: solid medium #000000;
+	background-color: blue;
+}
+
+#cat, #mouse {
+	position: relative;
+	width: 3rem;
+	height: 3rem;
+	display: ;
+	float: left;
+	left: 0;
+	top: 0;
+}  
+*/
+/*img {
+	height: 100%;
+}*/
+
+
+
+
+
+
+
+
+/*  V1 code below
+
 	body {
 		background-image: url("images/usflag.jpg");
 		background-size: cover;
@@ -62,4 +128,4 @@
 		height: 100%;
 		font-size: 9rem;
 		text-align: center;
-	}
+	}*/

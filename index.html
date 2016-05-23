@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Miles' JavaScript Racer</title>
+  <title>Miles' JavaScript Chaser</title>
   <meta charset="UTF-8">
   <link rel="stylesheet" type="text/css" href="https://necolas.github.io/normalize.css/4.1.1/normalize.css">
   <link rel="stylesheet" type="text/css" href="main.css">
-  <script src="script.js" async></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <script src="script.js"></script>
+  <!-- <script src="script.js" async></script> -->
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
 </head>
 <body>
   <div id="wrapper">  
-    <h1>The Race to Nomination</h1>
-    <h2 class="instructions">Hillary: Tap Key 'A'&emsp;&emsp;&emsp;Bernie: Tap Key 'L'</h2>
-    <h2 class="instructions" id="start">Press Space to Start</h2>
-    <div id="track1">
-      <div id="winLose1"></div>
-      <div id="car1"><img src="images/hillary.jpg"></div>
+    <h1>Catch the Mouse!</h1>
+    <h2 class="instructions">You are the cat. Use the arrow keys to catch the mouse.</h2>
+    <h2 class="instructions" id="start">Press space to start</h2>
+    <div id="track">
+    	<img id="cat" src="images/cat.png">
+    	<img id="mouse" src="images/mouse.png">
     </div>
-    <div id="track2">
-      <div id="winLose2"></div>
-      <div id="car2"><img src="images/bernie.png"></div>
-    </div>
-    <h2 id="playAgain">Press Space to Play Again</h2>    
+    <!-- <h2 id="playAgain">Press Space to Play Again</h2>     -->
   </div>
 
 </body>
