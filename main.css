@@ -19,6 +19,7 @@
 	height: 30rem;
 	background-image: url("images/grass.jpg");
 	z-index: -2;
+	border: solid medium #000000;
 }
 
 #cat,
@@ -40,6 +41,10 @@
 
 #grave {
 	height: 3rem;
+}
+
+#wins {
+	padding-top: 1rem;
 }
 
 /*#wrapper {

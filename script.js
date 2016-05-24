@@ -2,6 +2,13 @@
 function startSeq(e) {
 	if (e.which === 32) {
 		document.removeEventListener("keydown", startSeq);
+		$("#cat").css("visibility", "hidden");
+		$("#mouse").css("visibility", "hidden");
+		$("#cat").css("left", 0);
+		$("#mouse").css("left", 0);
+		// $("#start").html("Press space to start");
+		// document.addEventListener("keydown", startSeq);
+
 		startPosns();
 		var i = 3;
 		$("#start").html(i + "...");
@@ -9,7 +16,7 @@ function startSeq(e) {
 		countDown = window.setInterval(function() {
 			$("#start").html(i + "...");
 			i--;
-			if (i === 1) {
+			if (i === -1) {
 				clearInterval(countDown);
 				$("#start").html("Go!");
 				document.addEventListener("keydown", moveCat);
@@ -141,12 +148,14 @@ function isGameOver() {
 
 	// Check if cat caught mouse
 	if (cCenter[0] > mPos.left && cCenter[0] < mPos.left + mWidth && cCenter[1] > mPos.top && cCenter[1] < mPos.top + mHeight) {
+		catWins++;
 		gameOver(0);
 		return 1;
 	}
 
 	// Check if mouse made it to edge of the track
 	if (mPos.left + (2 * mWidth) >= $("#track").width()) {
+		mouseWins++;
 		gameOver(1);
 		return 1;
 	}
@@ -161,6 +170,10 @@ function gameOver(winState) {
 	var pos = $("#mouse").position();
 	var l = pos.left.toString() + "px";
 	var t = pos.top.toString() + "px";
+
+	$("#wins").html("Cat wins: " + catWins + "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Mouse wins: " + mouseWins);
+
+
 	// Cat wins
 	if (winState === 0) {
 		$("#track").append('<img src="images/gravestone.png" style="position:absolute;height:3rem;left:' + l + ';top:' + t + '"' + '>');
@@ -173,24 +186,22 @@ function gameOver(winState) {
 		$("#track").append('<img src="images/cheese.png" style="position:absolute;height:3rem;left:' + l + ';top:' + t + '"' + '>');
 	}
 
-	$("#start").html("Press Enter to Play Again");
-	document.addEventListener("keydown", reset);
+	$("#start").html("Press space to play again");
+	document.addEventListener("keydown", startSeq);
 }
 
-// Reset to play again
-function reset(e) {
-	if (e.which === 13) {
-		$("#cat").css("visibility", "hidden");
-		$("#mouse").css("visibility", "hidden");
-		$("#cat").css("left", 0);
-		$("#mouse").css("left", 0);
-		$("#start").html("Press space to start");
-		document.addEventListener("keydown", startSeq);
-	}
-}
+// Prevent up and down arrow keys and space bar from scrolling the page
+window.addEventListener("keydown", function(e) {
+    // space and arrow keys
+    if([32, 38, 40].indexOf(e.keyCode) > -1) {
+        e.preventDefault();
+    }
+}, false);
 
 var clock;
 var countDown;
+var catWins = 0;
+var mouseWins = 0;
 
 // --- RUN ---
 $(function () {
