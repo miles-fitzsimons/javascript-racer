@@ -1,12 +1,12 @@
 * {
-	border: red solid 1px;
+	/*border: red solid 1px;*/
 	text-align: center;
 }
 
-body {
+/*body {
 	background-color: blue;
 }
-
+*/
 #wrapper {
 	position: relative;
 	width: 96%;
@@ -36,6 +36,10 @@ body {
 
 #mouse {
 	z-index: -1;
+}
+
+#grave {
+	height: 3rem;
 }
 
 /*#wrapper {
