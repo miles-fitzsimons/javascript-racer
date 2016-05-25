@@ -10,7 +10,6 @@ function startSeq(e) {
 		$("#mouse").css("left", 0);
 		startPosns();
 		var speed = getSpeed();
-		console.log("SPeed   " + speed);
 		var i = 3;
 		$("#start").html(i + "...");
 		i--;
@@ -32,7 +31,6 @@ function startSeq(e) {
 // Calculate mouse speed for difficulity
 function getSpeed() {
 	var slideVal = $("#slider").val();
-	console.log(slideVal, typeof slideVal);
 	var speed = Math.abs(Number(slideVal));
 	return speed;
 }
@@ -68,7 +66,7 @@ function move(dir, animal) {
 	var aWidth = $(animal).width();
 	var aHeight = $(animal).height();
 	var xMove = tWidth / 50;
-	var yMove = tHeight / 50;
+	var yMove = tHeight / 25;
 
 	// Move right
 	if (dir === "right") {
@@ -78,7 +76,6 @@ function move(dir, animal) {
 		else {
 			$(animal).css("left", tWidth - aWidth);
 		}
-
 	}
 	// Move left
 	if (dir === "left") {
@@ -201,14 +198,15 @@ function gameOver(winState) {
 	document.addEventListener("keydown", startSeq);
 }
 
-// Prevent up and down arrow keys and space bar from scrolling the page
+// Prevent arrow keys and space bar from scrolling the page
 window.addEventListener("keydown", function(e) {
     // space and arrow keys
-    if([32, 38, 40].indexOf(e.keyCode) > -1) {
+    if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
     	e.preventDefault();
     }
   }, false);
 
+// --- GLOBAL VARIABLES ---
 var clock;
 var countDown;
 var catWins = 0;
@@ -219,7 +217,4 @@ $(function () {
 	$("#cat").css("visibility", "hidden");
 	$("#mouse").css("visibility", "hidden");
 	document.addEventListener("keydown", startSeq);
-	// var temp = $("#slider").val();
-	// console.log(temp);
-
 });
