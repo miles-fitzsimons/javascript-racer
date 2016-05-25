@@ -47,6 +47,17 @@
 	padding-top: 1rem;
 }
 
+#sliderParent {
+	display: table;
+	margin: auto;
+}
+
+.sliderChild {
+	display: table-cell;
+	vertical-align: middle;
+
+}
+
 /*#wrapper {
 	position: absolute;
 	width: 96%;

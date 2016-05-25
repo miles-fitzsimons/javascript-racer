@@ -14,7 +14,11 @@
   <div id="wrapper">  
     <h1>Mouse Hunt!</h1>
     <h2 class="instructions">Use the arrow keys to catch the mouse</h2>
-    <h2 class="instructions" id="start">Press space to start</h2>
+    <h2 class="instructions" id="difficulty">1. Select a difficulty level</h2>
+    <div id="sliderParent">
+    <span class="sliderChild">Easy&emsp;</span><input class="sliderChild" id="slider" type="range" min="-100" max="-40" step="5" value="-70" /><span class="sliderChild">&emsp;Hard</span>
+    </div>
+    <h2 class="instructions" id="start">2. Press space to start</h2>
     <div id="track">
     	<img id="cat" src="images/cat.png">
     	<img id="mouse" src="images/mouse.png">

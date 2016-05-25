@@ -4,12 +4,13 @@ function startSeq(e) {
 		document.removeEventListener("keydown", startSeq);
 		$("#cat").css("visibility", "hidden");
 		$("#mouse").css("visibility", "hidden");
+		$("#sliderParent").css("visibility","hidden");
+		$("#difficulty").css("visibility","hidden");
 		$("#cat").css("left", 0);
 		$("#mouse").css("left", 0);
-		// $("#start").html("Press space to start");
-		// document.addEventListener("keydown", startSeq);
-
 		startPosns();
+		var speed = getSpeed();
+		console.log("SPeed   " + speed);
 		var i = 3;
 		$("#start").html(i + "...");
 		i--;
@@ -22,10 +23,18 @@ function startSeq(e) {
 				document.addEventListener("keydown", moveCat);
 				clock = window.setInterval(function() {
 					moveMouse();
-				}, 50);
+				}, speed);
 			}
 		},1000);
 	}
+}
+
+// Calculate mouse speed for difficulity
+function getSpeed() {
+	var slideVal = $("#slider").val();
+	console.log(slideVal, typeof slideVal);
+	var speed = Math.abs(Number(slideVal));
+	return speed;
 }
 
 // Randomly place cat and mouse on Y axis
@@ -49,90 +58,91 @@ function startPosns() {
 	$("#mouse").css("visibility", "visible");
 }
 
-// --- MOUSE MOVEMENT ---
-function moveMouse() {
-	// Check to see if game is over
-	var finished = isGameOver();
+// --- MOVEMENT ---
+function move(dir, animal) {
+	animal = "#" + animal;
+	var xPos = $(animal).position().left;
+	var yPos = $(animal).position().top;
+	var tWidth = $("#track").width();
+	var tHeight = $("#track").height();
+	var aWidth = $(animal).width();
+	var aHeight = $(animal).height();
+	var xMove = tWidth / 50;
+	var yMove = tHeight / 50;
 
-	if (finished != 1){
-		// Move right
-		var xPos = $("#mouse").position().left;
-		var xMove = $("#track").width() / 50;
-		$("#mouse").css("left", xPos + xMove);
-
-		// Choose if mouse moves up or down and move accordingly
-		var yPos = $("#mouse").position().top;
-		var yMove = $("#track").height() / 50;
-
-		// Move up
-		if (Math.random() > 0.5) {
-			if( yPos - yMove > 0) {
-				$("#mouse").css("top", yPos - yMove);
-			}
-			else {
-				$("#mouse").css("top",0);
-			}
+	// Move right
+	if (dir === "right") {
+		if (xPos + xMove + aWidth < tWidth) {
+			$(animal).css("left", xPos + xMove);
 		}
-		// Move down
 		else {
-			var maxTop = $("#track").height() - $("#mouse").height();
-			if ( yPos + yMove < maxTop ) {
-				$("#mouse").css("top", yPos + yMove);
-			}
-			else {
-				$("#mouse").css("top", $("#track").height() - $("#mouse").height());
-			}
+			$(animal).css("left", tWidth - aWidth);
+		}
+
+	}
+	// Move left
+	if (dir === "left") {
+		if (xPos - xMove > 0) {
+			$(animal).css("left", xPos - xMove);
+		}
+		else {
+			$(animal).css("left", 0);
+		}
+	}
+	// Move up
+	if (dir === "up") {
+		if (yPos - yMove > 0) {
+			$(animal).css("top", yPos - yMove);
+		}
+		else {
+			$(animal).css("top", 0);
+		}
+	}
+	// Move down
+	if (dir === "down") {
+		if (yPos + yMove < tHeight - aHeight) {
+			$(animal).css("top", yPos + yMove);
+		}
+		else {
+			$(animal).css("top", tHeight - aHeight);
 		}
 	}
 }
 
-// --- CAT MOVEMENT ---
+// --- MOVE CAT ---
 function moveCat(e) {
-	var xPos = $("#cat").position().left;
-	var yPos = $("#cat").position().top;
-	var tWidth = $("#track").width();
-	var tHeight = $("#track").height();
-	var cWidth = $("#cat").width();
-	var cHeight = $("#cat").height();
-	var xMove = tWidth / 50;
-	var yMove = tHeight / 50;
-
-	// Right arrow
+	// Move right
 	if (e.which === 39) {
-		if ( xPos + xMove + cWidth < tWidth ) {
-			$("#cat").css("left", xPos + xMove);
-		}
-		else {
-			$("#cat").css("left", tWidth - cWidth);
-		}
+		move ("right", "cat");
 	}
-	// Left arrow
+	// Move left
 	if (e.which === 37) {
-		if( xPos - xMove < 0 ) {
-			$("#cat").css("left", 0);
-		}
-		else {
-			$("#cat").css("left", xPos - xMove);
-		}
+		move ("left", "cat");
 	}
-	// Up arrow
+	// Move up
 	if (e.which === 38) {
-		if( yPos - yMove > 0) {
-			$("#cat").css("top", yPos - yMove);
-		}
-		else {
-			$("#cat").css("top",0);
-		}		
+		move ("up", "cat");
 	}
-	// Down arrow
+	// Move down
 	if (e.which === 40) {
-		if ( yPos + yMove < tHeight - cHeight ) {
-			$("#cat").css("top", yPos + yMove);
+		move ("down", "cat");
+	}
+}
+
+// --- MOVE MOUSE ---
+function moveMouse() {
+	// Check to see if game is over
+	var finished = isGameOver();
+	if (finished != 1) {
+		// Move right
+		move ("right", "mouse");
+		// Move up or down
+		if (Math.random() > 0.5) {
+			move ("up", "mouse");			
 		}
 		else {
-			$("#cat").css("top", tHeight - cHeight);
+			move ("down", "mouse");
 		}
-
 	}
 }
 
@@ -173,7 +183,6 @@ function gameOver(winState) {
 
 	$("#wins").html("Cat wins: " + catWins + "&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Mouse wins: " + mouseWins);
 
-
 	// Cat wins
 	if (winState === 0) {
 		$("#track").append('<img src="images/gravestone.png" style="position:absolute;height:3rem;left:' + l + ';top:' + t + '"' + '>');
@@ -186,7 +195,9 @@ function gameOver(winState) {
 		$("#track").append('<img src="images/cheese.png" style="position:absolute;height:3rem;left:' + l + ';top:' + t + '"' + '>');
 	}
 
-	$("#start").html("Press space to play again");
+	$("#sliderParent").css("visibility","visible");
+	$("#difficulty").css("visibility","visible");
+	$("#start").html("2. Press space to play again");
 	document.addEventListener("keydown", startSeq);
 }
 
@@ -194,9 +205,9 @@ function gameOver(winState) {
 window.addEventListener("keydown", function(e) {
     // space and arrow keys
     if([32, 38, 40].indexOf(e.keyCode) > -1) {
-        e.preventDefault();
+    	e.preventDefault();
     }
-}, false);
+  }, false);
 
 var clock;
 var countDown;
@@ -208,4 +219,7 @@ $(function () {
 	$("#cat").css("visibility", "hidden");
 	$("#mouse").css("visibility", "hidden");
 	document.addEventListener("keydown", startSeq);
+	// var temp = $("#slider").val();
+	// console.log(temp);
+
 });
