@@ -1,2 +1,2 @@
 # javascript-racer
-For learning JavaScript
+For learning JavaScript.
